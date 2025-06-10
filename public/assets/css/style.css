@@ -1,0 +1,65 @@
+/* Reset dasar */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #fce3ec, #cce5f7, #d2f6e7);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+  color: #4b4b4b;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Animasi gradasi halus */
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.container {
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 30px 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  max-width: 500px;
+  width: 100%;
+  border: 2px solid #fbd6d2;
+}
+
+h1 {
+  color: #d88fa0;
+  border-bottom: 2px solid #fbd6d2;
+  margin-bottom: 20px;
+  font-size: 28px;
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 10px 0;
+  font-size: 18px;
+  border-bottom: 1px solid #f3e5e9;
+}
+
+li:last-child {
+  border-bottom: none;
+}
