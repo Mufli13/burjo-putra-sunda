@@ -1,0 +1,9 @@
+services:
+  burjo-ai:
+    build: .
+    container_name: burjo-ai-recommendation
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./orders.db:/app/orders.db
+    restart: always
