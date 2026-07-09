@@ -219,16 +219,20 @@ class Admin extends BaseController
     // ============================================================
     public function check_count()
 {
-    $db    = \Config\Database::connect();
+    $db = \Config\Database::connect();
+
     $today = date('Y-m-d');
 
     $count = $db->query("
-        SELECT COUNT(*) as total FROM booking
-        WHERE DATE(order_date) = '$today'
-        AND status IN ('pending', 'proses')
-    ")->getRow()->total;
+        SELECT COUNT(*) AS count
+        FROM booking
+        WHERE DATE(order_date)='$today'
+        AND status IN ('pending','proses')
+    ")->getRow()->count;
 
-    return $this->response->setJSON(['count' => (int)$count]);
+    return $this->response->setJSON([
+        'count' => (int)$count
+    ]);
 }
 
     // ============================================================
