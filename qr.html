@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Cetak QR Meja - Putra Sunda</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        body { background: #f0f0f0; display: flex; flex-direction: column; align-items: center; font-family: 'Arial', sans-serif; padding: 50px; }
+        
+        /* DESAIN KARTU MEJA */
+        .qr-card {
+            width: 300px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 5px solid #ED1C24; /* Merah Putra Sunda */
+            position: relative;
+        }
+
+        .header {
+            background: #FFD700; /* Kuning Putra Sunda */
+            padding: 20px;
+            border-bottom: 5px solid #00A651; /* Hijau Putra Sunda */
+        }
+
+        .header h1 { margin: 0; color: #ED1C24; font-size: 22px; font-weight: 900; }
+        .header p { margin: 0; color: #ED1C24; font-weight: bold; font-size: 12px; }
+
+        .qr-container {
+            padding: 30px;
+            background: white;
+            display: flex;
+            justify-content: center;
+        }
+
+        .footer {
+            background: #ED1C24;
+            color: white;
+            padding: 15px;
+        }
+
+        .meja-number {
+            font-size: 40px;
+            font-weight: 900;
+            display: block;
+            line-height: 1;
+        }
+
+        .scan-text { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="no-print" style="margin-bottom: 20px;">
+        <label>Ganti Nomor Meja: </label>
+        <input type="number" id="mejaInput" value="1" oninput="generateQR()">
+        <button onclick="window.print()">Cetak Sekarang</button>
+    </div>
+
+    <div class="qr-card">
+        <div class="header">
+            <h1>PUTRA SUNDA</h1>
+            <p>WARMINDO & BURJO</p>
+        </div>
+        
+        <div class="qr-container">
+            <div id="qrcode"></div>
+        </div>
+
+        <div class="footer">
+            <span class="scan-text">SCAN UNTUK PESAN</span>
+            <span class="meja-number" id="labelMeja">01</span>
+        </div>
+    </div>
+
+    <script>
+        function generateQR() {
+            let noMeja = document.getElementById('mejaInput').value;
+            let container = document.getElementById("qrcode");
+            let label = document.getElementById("labelMeja");
+            
+            // Format nomor meja jadi 01, 02, dst
+            label.innerText = noMeja.padStart(2, '0');
+            
+            // Bersihkan QR lama
+            container.innerHTML = "";
+
+            // BUAT LINK NYA DI SINI (Ganti dengan URL website aslimu nanti)
+            let linkPesan = "http://localhost/Burjo_Putra_Sunda/public/home/index/" + noMeja;
+
+            new QRCode(container, {
+                text: linkPesan,
+                width: 200,
+                height: 200,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        }
+
+        // Jalankan pertama kali
+        generateQR();
+    </script>
+</body>
+</html>

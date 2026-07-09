@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lupa Password - Putra Sunda</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --war-red: #ED1C24;
+            --war-yellow: #FFD700;
+            --war-green: #00A651;
+        }
+
+        body {
+            /* Latar Belakang Merah Identik dengan Login */
+            background: linear-gradient(135deg, var(--war-red) 0%, #b31217 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* GELOMBANG KUNING */
+        .bg-wave-yellow {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 260px;
+            background: var(--war-yellow);
+            clip-path: polygon(0% 50%, 25% 45%, 50% 55%, 75% 40%, 100% 55%, 100% 100%, 0% 100%);
+            opacity: 0.8;
+            z-index: -2;
+        }
+
+        /* GELOMBANG HIJAU */
+        .bg-wave-green {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: var(--war-green);
+            clip-path: polygon(0% 40%, 20% 38%, 45% 55%, 70% 60%, 85% 50%, 100% 45%, 100% 100%, 0% 100%);
+            z-index: -1;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            overflow: hidden;
+            width: 100%;
+            max-width: 400px;
+            border-top: 10px solid var(--war-yellow);
+            position: relative;
+            z-index: 10;
+        }
+
+        .login-header {
+            background: white;
+            padding: 30px 20px 10px;
+            text-align: center;
+        }
+
+        .login-header h2 {
+            color: var(--war-red);
+            font-weight: 900;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .login-header p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .card-body {
+            padding: 20px 30px 30px;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            padding: 12px 15px;
+            border: 2px solid #eee;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--war-green);
+            box-shadow: none;
+        }
+
+        .btn-update {
+            background: var(--war-green);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: bold;
+            width: 100%;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-update:hover {
+            background: #008541;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,166,81,0.3);
+            color: white;
+        }
+
+        .back-to-login {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-to-login a {
+            color: var(--war-red);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .badge-warmindo {
+            background: var(--war-yellow);
+            color: var(--war-red);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-wave-yellow"></div>
+    <div class="bg-wave-green"></div>
+
+    <div class="login-card shadow">
+        <div class="login-header">
+            <div class="badge-warmindo text-uppercase">Management System</div>
+            <h2>PUTRA SUNDA</h2>
+            <p>Sistem Pemulihan Password</p>
+        </div>
+
+        <div class="card-body">
+            <?php if(session()->getFlashdata('error')): ?>
+                <div class="alert alert-danger border-0 small py-2 mb-3">
+                    <?= session()->getFlashdata('error') ?>
+                </div>
+            <?php endif; ?>
+
+            <form action="<?= base_url('auth/proses-lupa') ?>" method="post">
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">Username Admin</label>
+                    <input type="text" name="username" class="form-control" placeholder="Masukkan username" required autocomplete="off">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label small fw-bold text-danger">Di kota mana burjo putra sunda berada?</label>
+                    <input type="text" name="jawaban" class="form-control" placeholder="Jawaban Keamanan" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">Password Baru</label>
+                    <input type="password" name="new_password" class="form-control" placeholder="Masukkan password baru" required>
+                </div>
+
+                <button type="submit" class="btn btn-update shadow-sm">UPDATE PASSWORD</button>
+            </form>
+
+            <div class="back-to-login">
+                <a href="<?= base_url('auth/portal') ?>">← Kembali ke Login</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

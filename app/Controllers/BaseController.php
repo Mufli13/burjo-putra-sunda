@@ -11,13 +11,6 @@ use Psr\Log\LoggerInterface;
 
 /**
  * Class BaseController
- *
- * BaseController provides a convenient place for loading components
- * and performing functions that are needed by all your controllers.
- * Extend this class in any new controllers:
- *     class Home extends BaseController
- *
- * For security be sure to declare any new methods as protected or private.
  */
 abstract class BaseController extends Controller
 {
@@ -30,8 +23,7 @@ abstract class BaseController extends Controller
 
     /**
      * An array of helpers to be loaded automatically upon
-     * class instantiation. These helpers will be available
-     * to all other controllers that extend BaseController.
+     * class instantiation.
      *
      * @var list<string>
      */
@@ -51,8 +43,25 @@ abstract class BaseController extends Controller
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
 
-        // Preload any models, libraries, etc, here.
+        // --- KUNCI PAKSA ADMIN (Pasti Berhasil) ---
+        // Mengambil layanan URI untuk mengecek alamat yang sedang diakses
+        $uri = service('uri');
+        
+        // Cek apakah segmen pertama URL adalah 'admin'
+        // Jika pembeli mengakses halaman menu, segmen1 biasanya kosong atau 'home'
+        if ($uri->getSegment(1) == 'admin') {
+            
+            // Memulai session jika belum otomatis berjalan
+            $session = \Config\Services::session();
 
-        // E.g.: $this->session = service('session');
+            // Jika session 'logged_in' tidak ada atau nilainya bukan true
+            if (!$session->get('logged_in')) {
+                // Paksa lempar ke halaman login menggunakan header PHP murni
+                // agar eksekusi berhenti seketika sebelum controller anak dijalankan
+                header("Location: " . base_url('login'));
+                exit(); 
+            }
+        }
+        // ------------------------------------------
     }
 }

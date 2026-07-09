@@ -15,7 +15,8 @@ class Security extends BaseConfig
      *
      * @var string 'cookie' or 'session'
      */
-    public string $csrfProtection = 'cookie';
+    public string $csrfProtection = 'session';
+    public array $excludeRoutes   = ['admin/hapusLaporanHarian'];
 
     /**
      * --------------------------------------------------------------------------
