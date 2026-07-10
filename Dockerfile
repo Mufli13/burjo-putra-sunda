@@ -1,6 +1,6 @@
 FROM php:8.2-apache
 
-# Install library yang dibutuhkan CodeIgniter
+# Install dependency untuk CodeIgniter
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
@@ -19,20 +19,21 @@ RUN a2enmod rewrite
 # Copy Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Set working directory
+# Working directory
 WORKDIR /var/www/html
 
 # Copy project
 COPY . .
 
-# Install dependency
+# Install Composer dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Gunakan apache.conf
+# Copy Apache config
 COPY apache.conf /etc/apache2/sites-available/000-default.conf
 
 # Permission
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 writable
 
+# Port
 EXPOSE 80
