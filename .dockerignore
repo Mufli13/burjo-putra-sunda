@@ -1,0 +1,30 @@
+# Git
+.git
+.gitignore
+
+# VS Code
+.vscode
+
+# Environment
+.env
+
+# Cache
+writable/cache/*
+writable/logs/*
+writable/session/*
+
+# Composer
+vendor/
+
+# Node
+node_modules/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Docker
+docker-compose.yml
+
+# Database lokal AI
+ai-recommendation/orders.db
